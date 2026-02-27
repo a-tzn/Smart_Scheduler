@@ -1,0 +1,6 @@
+.backgroundDiv{
+    background: rgb(4,30,174);
+    background: -moz-radial-gradient(center, rgb(4,30,174) 0%, rgb(4,30,174) 48%, rgb(255,125,244) 100%);
+    background: -webkit-radial-gradient(center, rgb(4,30,174) 0%, rgb(4,30,174) 48%, rgb(255,125,244) 100%);
+    background: radial-gradient(ellipse at center, rgb(4,30,174) 0%, rgb(4,30,174) 48%, rgb(255,125,244) 100%);
+}
