@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate} from 'react-router-dom'
 import { Link} from 'react-router-dom'
+import { loginAcc } from "../services/api"
 
 import './css_styles/login_styles.css'
 
@@ -10,8 +11,21 @@ function Login_Page(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function HandleLogin(){
+    async function HandleLogin(){
+        try {
+            const response = await loginAcc({ email, password });
+            console.log("Signup Success:", response.data);
+            alert(response.data.message);
 
+        } catch (error) {
+            if (error.response) {
+                // Backend returned a response (like 400)
+                alert(error.response.data.detail); // show backend message
+            } else {
+                // Network or CORS error
+                alert("Server not reachable");
+            }
+        }
     }
     
     return(

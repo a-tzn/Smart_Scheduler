@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate} from 'react-router-dom'
 import "./css_styles/signup_styles.css"
+import { createAcc } from "../services/api";
 
 function Signup_Page(){
     const navigate = useNavigate();
@@ -11,10 +12,23 @@ function Signup_Page(){
 
     function HandleGoBack(){
         navigate("/");
+
     }
 
-    function HandleSignin(){
-        navigate("/");
+    async function HandleSignin(){
+        try {
+            const response = await createAcc({ username, email, password });
+            alert(response.data.message);
+            navigate("/"); // back to login
+        } catch (error) {
+            if (error.response) {
+                // Backend returned a response (like 400)
+                alert(error.response.data.detail); // show backend message
+            } else {
+                // Network or CORS error
+                alert("Server not reachable");
+            }
+        }
     }
 
     return(
@@ -32,7 +46,7 @@ function Signup_Page(){
                             className="usernameTxtbx" 
                             type="text" 
                             placeholder="Username" 
-                            onChange={(e)=>setEmail(e.target.value)} />
+                            onChange={(e)=>setUsername(e.target.value)} />
 
                         <input 
                             id="emailTxtbx-id" 
