@@ -19,13 +19,11 @@ function Signup_Page(){
         try {
             const response = await createAcc({ username, email, password });
             alert(response.data.message);
-            navigate("/"); // back to login
+            navigate("/");
         } catch (error) {
             if (error.response) {
-                // Backend returned a response (like 400)
-                alert(error.response.data.detail); // show backend message
+                alert(error.response.data.detail);
             } else {
-                // Network or CORS error
                 alert("Server not reachable");
             }
         }
@@ -62,12 +60,6 @@ function Signup_Page(){
                             placeholder="Password" 
                             onChange={(e)=>setPassword(e.target.value)} />
 
-                        <div className="showFrgtPassDiv">
-                            <input 
-                                id="showPasswordChkbk-id" 
-                                className="showPassWordChkbx"
-                                type="checkbox" /> Show password
-                        </div>
                     </div>
 
                     <div className="backSigninBtnDiv">

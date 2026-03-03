@@ -36,15 +36,16 @@ class UserLogin(BaseModel):
 
 @app.post("/login/")
 def login_user(user: UserLogin, db: Session= Depends(get_db)):
-    old_user= db.query(models.accounts).filter(models.accounts.email == user.email).first()
+    old_user= db.query(models.accounts).filter(
+        models.accounts.email == user.email).first()
     if not old_user or old_user.password != user.password:
         raise HTTPException(status_code=400, detail="Invalid credentials")
-    return {"message": "Login successful"}
+    return {"access": True,
+            "token": "logintoken"}
 
 @app.post("/create/")
 def create_user(user: UserCreate, db: Session= Depends(get_db)):
 
-    # Check if email already exists
     existing_email= db.query(models.accounts)\
         .filter(models.accounts.email== user.email)\
         .first()
@@ -52,7 +53,6 @@ def create_user(user: UserCreate, db: Session= Depends(get_db)):
     if existing_email:
         raise HTTPException(status_code= 400, detail= "Email already registered")
 
-    # Check if username already exists
     existing_username= db.query(models.accounts)\
         .filter(models.accounts.username== user.username)\
         .first()
@@ -60,7 +60,6 @@ def create_user(user: UserCreate, db: Session= Depends(get_db)):
     if existing_username:
         raise HTTPException(status_code= 400, detail= "Username already taken")
 
-    # Create new user
     new_user= models.accounts(
         username= user.username,
         email= user.email,

@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { useNavigate} from 'react-router-dom'
+import { replace, useNavigate} from 'react-router-dom'
 import { Link} from 'react-router-dom'
 import { loginAcc } from "../services/api"
+import { useEffect } from "react"
 
 import './css_styles/login_styles.css'
 
@@ -11,18 +12,25 @@ function Login_Page(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect (() => {
+        const token = localStorage.getItem("token");
+        if(token){
+            navigate("/Home", {replace: true});
+        }
+    }, []);
+
     async function HandleLogin(){
         try {
             const response = await loginAcc({ email, password });
-            console.log("Signup Success:", response.data);
-            alert(response.data.message);
+            if (response.data.access){
+                localStorage.setItem("token",response.data.token)
+                navigate("/Home")
+            }
 
         } catch (error) {
             if (error.response) {
-                // Backend returned a response (like 400)
-                alert(error.response.data.detail); // show backend message
+                alert(error.response.data.detail);
             } else {
-                // Network or CORS error
                 alert("Server not reachable");
             }
         }
@@ -67,7 +75,7 @@ function Login_Page(){
                                 Login
                             </button>
                         <p className="signupP">
-                            Don't have an account? <Link to="./signin">Sign up</Link></p>
+                            Don't have an account? <Link to="./Signin">Sign up</Link></p>
                     </div>
                 </div>
             </div>

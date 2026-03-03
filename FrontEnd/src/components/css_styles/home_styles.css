@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.homeContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f6f9;
+}
+
+/* HEADER */
+.headerDiv {
+    height: 70px;
+    background-color: #2f80ed;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.userSection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logoutBtn {
+    padding: 8px 15px;
+    border: none;
+    background-color: white;
+    color: #2f80ed;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.logoutBtn:hover {
+    background-color: #e6e6e6;
+}
+
+/* BODY */
+.bodyContainer {
+    flex: 1;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidePanelDiv {
+    width: 220px;
+    background-color: #1e293b;
+    color: white;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navItem {
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navItem:hover {
+    background-color: #334155;
+}
+
+/* MAIN CONTENT */
+.mainContentDiv {
+    flex: 1;
+    padding: 30px;
+}
+
+.cardsContainer {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
