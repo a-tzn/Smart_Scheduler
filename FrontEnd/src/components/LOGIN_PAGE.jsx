@@ -24,7 +24,7 @@ function Login_Page(){
             const response = await loginAcc({ email, password });
             if (response.data.access){
                 localStorage.setItem("token",response.data.token)
-                navigate("/Home")
+                navigate("/Home/Dashboard")
             }
 
         } catch (error) {

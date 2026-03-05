@@ -1,0 +1,169 @@
+/* TASKS */
+.taskContainer {
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+.taskInputSection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.taskInput {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.addTaskBtn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #2f80ed;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.addTaskBtn:hover {
+    background-color: #1c60c5;
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.taskItem {
+    background-color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.deleteBtn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: #dc2626;
+}
+
+/* TASK ACTION BAR */
+.taskActionBar {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.editBtn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #f59e0b;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.editBtn:hover {
+    background-color: #d97706;
+}
+
+/* TABLE */
+.taskTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.taskTable th,
+.taskTable td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.taskTable thead {
+    background-color: #2f80ed;
+    color: white;
+}
+
+.taskTable tbody tr {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.taskTable tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.selectedRow {
+    background-color: #dbeafe !important;
+}
+
+/* MODAL */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background: white;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modalContent input,
+.modalContent textarea,
+.modalContent select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modalContent textarea {
+    resize: none;
+    height: 80px;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.cancelBtn {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cancelBtn:hover {
+    background-color: #4b5563;
+}

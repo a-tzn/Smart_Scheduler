@@ -41,7 +41,7 @@ function Home_Page() {
                         className="navItem"
                         onClick={() => navigate('Tasks')}
                     >
-                        Reports
+                        Tasks
                     </div>
                 </div>
 
