@@ -14,6 +14,7 @@ function Login_Page(){
 
     useEffect (() => {
         const token = localStorage.getItem("token");
+        const account_id = localStorage.getItem("account_id");
         if(token){
             navigate("/Home", {replace: true});
         }
@@ -24,6 +25,7 @@ function Login_Page(){
             const response = await loginAcc({ email, password });
             if (response.data.access){
                 localStorage.setItem("token",response.data.token)
+                localStorage.setItem("account_id", response.data.account_id);
                 navigate("/Home/Dashboard")
             }
 

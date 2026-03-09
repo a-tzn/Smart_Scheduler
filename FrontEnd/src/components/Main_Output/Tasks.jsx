@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createTask, updateTask, getTasks, deleteTask } from "../../services/api"
 import "./styles/tasks_styles.css"
 
 function Tasks() {
@@ -16,6 +17,29 @@ function Tasks() {
         priority: "Medium",
         status: "Pending"
     })
+
+    useEffect(() => {
+
+        const loadTasks = async () => {
+
+            const account_id = localStorage.getItem("account_id")
+
+            if (!account_id) return
+
+            try {
+
+                const res = await getTasks(account_id)
+
+                setTasks(res.data)
+
+            } catch (err) {
+                console.log("Failed to load tasks")
+            }
+        }
+
+        loadTasks()
+
+    }, [])
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -35,20 +59,54 @@ function Tasks() {
         setShowModal(true)
     }
 
-    function handleSaveTask() {
+    async function handleSaveTask() {
         if (!formData.title) return alert("Title is required")
 
+        const account_id = localStorage.getItem("account_id")
+
         if (isEditing) {
-            const updatedTasks = tasks.map(task =>
-                task.id === selectedTaskId ? { ...formData, id: selectedTaskId } : task
-            )
-            setTasks(updatedTasks)
-        } else {
-            const newTask = {
-                ...formData,
-                id: Date.now()
+
+            try {
+
+                await updateTask(selectedTaskId, {
+                    title: formData.title,
+                    objective: formData.objective,
+                    startDate: formData.startDate,
+                    endDate: formData.endDate,
+                    priority: formData.priority,
+                    status: formData.status
+                })
+
+                const updatedTasks = tasks.map(task =>
+                    task.id === selectedTaskId
+                        ? { ...formData, id: selectedTaskId }
+                        : task
+                )
+
+                setTasks(updatedTasks)
+
+            } catch (err) {
+                alert("Update failed")
             }
-            setTasks([...tasks, newTask])
+
+        }else {
+            try {
+
+                await createTask(account_id, formData)
+
+                const newTask = {
+                    ...formData,
+                    id: Date.now()
+                }
+                setTasks([...tasks, newTask])
+
+                setShowModal(false)
+                setSelectedTaskId(null)
+
+            } catch (error) {
+                alert("Failed to create task")
+            }
+            
         }
 
         setShowModal(false)
@@ -64,12 +122,17 @@ function Tasks() {
         setShowModal(true)
     }
 
-    function handleDeleteClick() {
+    async function handleDeleteClick() {
         if (!selectedTaskId) return alert("Select a task first")
         const confirmed = window.confirm("Are you sure you want to delete this task?")
         if (confirmed) {
-            const remainingTasks = tasks.filter(task => task.id !== selectedTaskId)
-            setTasks(remainingTasks)
+            try {
+                await deleteTask(selectedTaskId)
+                const remainingTasks = tasks.filter(task => task.id !== selectedTaskId)
+                setTasks(remainingTasks)
+            } catch (error) {
+                alert("Failed to delete task")
+            }
             setSelectedTaskId(null)
         }
     }
@@ -91,7 +154,7 @@ function Tasks() {
                     Edit Task
                 </button>
 
-                <button className="deleteBtn" onClick={handleEditClick}>
+                <button className="deleteBtn" onClick={handleDeleteClick}>
                     Delete Task
                 </button>
             </div>
